@@ -1,0 +1,29 @@
+version: '3.8'
+services:
+  server:
+    container_name: test-project-server
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - database
+    environment:
+      - POSTGRES_DB=test_db
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=secret
+    ports:
+      - 8080:8080
+    restart: always
+
+  database:
+    container_name: test-project-database
+    image: "postgres"
+    environment:
+      - POSTGRES_DB=test_db
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=secret
+    ports:
+      - 5432
+    restart: always
+
+     
